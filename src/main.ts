@@ -24,15 +24,15 @@ async function bootstrap() {
   );
 
   // Setup Swagger
-  // const swaggerConfig = new DocumentBuilder()
-  //   .setTitle('E-Commerce API')
-  //   .setDescription('RESTful API for E-Commerce Platform')
-  //   .setVersion('1.0')
-  //   .addBearerAuth()
-  //   .build();
+  const swaggerConfig = new DocumentBuilder()
+    .setTitle('Ticketing Management API')
+    .setDescription('RESTful API for Ticketing Management Platform')
+    .setVersion('1.0')
+    .addBearerAuth()
+    .build();
 
-  // const document = SwaggerModule.createDocument(app, swaggerConfig);
-  // SwaggerModule.setup('api/docs', app, document);
+  const document = SwaggerModule.createDocument(app, swaggerConfig);
+  SwaggerModule.setup('api/docs', app, document);
 
   const port = configService.get<number>('PORT', 3001);
   await app.listen(port);
