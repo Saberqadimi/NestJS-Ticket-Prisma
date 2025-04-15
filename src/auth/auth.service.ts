@@ -6,6 +6,7 @@ import { CurrentUser } from './types/current-user';
 import { UserService } from 'src/user/user.service';
 import { compare } from 'bcrypt';
 import { LoginResponseDto } from './dto/login-response.dto';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 
 @Injectable()
@@ -17,9 +18,12 @@ export class AuthService {
     ) { }
 
     async validateUser(email: string, password: string) {
-        const user = await this.userService.findByEmail(email);
+        let user = await this.userService.findByEmail(email);
 
-        if (!user) throw new UnauthorizedException('User not found!');
+        if (!user) {
+            const newUserDto: CreateUserDto = { email, password, name: email.split('@')[0] };
+            user = await this.userService.create(newUserDto);
+        }
 
         const isPasswordMatched = await compare(password, user.password);
         if (!isPasswordMatched) throw new UnauthorizedException("Invalid Credentials");
@@ -32,7 +36,7 @@ export class AuthService {
         const { access_token } = await this.generateTokens(userId);
         return { id: userId, access_token };
     }
-    
+
 
     async generateTokens(userId: number) {
         const payload: AuthJwtPayload = { sub: userId };
