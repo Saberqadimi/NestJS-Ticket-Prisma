@@ -1,196 +1,94 @@
-# E-Commerce Platform
+<div style="direction: rtl; text-align: right; font-family: 'Vazirmatn', Tahoma, sans-serif; line-height: 1.8;">
+  <h1>🎯 NestJS + Prisma Backend Project</h1>
 
-A modern e-commerce platform built with Next.js 14.2.4 and Nest.js, focusing on scalability, maintainability, and SOLID principles. The platform includes a minimalist, light, and fast-performing UI with RTL support for Persian language.
+  <p>این پروژه یک ساختار تمیز و اصولی برای توسعه‌ی بک‌اند با استفاده از <strong>NestJS</strong> و <strong>Prisma ORM</strong> است.</p>
 
-## 🚀 Features
+  <hr>
 
-- **OTP Authentication**: Phone number-based authentication using OTP
-- **Modern UI**: Utilizing Shadcn UI components and Tailwind CSS
-- **RTL Support**: Full Persian language support with RTL layout
-- **State Management**: Zustand for state management
-- **Data Fetching**: React Query (Tanstack) for data fetching and caching
-- **Form Validation**: Zod + React Hook Form for form validation
-- **Database**: Prisma ORM with PostgreSQL
-- **Monitoring**: Sentry for error tracking & Custom logging system
+  <h2>⚡️ ساختار پروژه</h2>
 
-## 📂 Project Structure
+  <pre>
+/prisma
+  ├── schema.prisma        # تعریف مدل‌های دیتابیس و کانفیگ Prisma
+  └── migrations/          # پوشه مخصوص مایگریشن دیتابیس
 
-```
-ecommerce-platform/
-├── frontend/               # Next.js 14.2.4 frontend
-│   ├── src/
-│   │   ├── app/            # App router
-│   │   ├── components/     # UI components
-│   │   ├── hooks/          # Custom hooks
-│   │   ├── lib/            # Utility functions
-│   │   │   └── logger.ts   # Custom logger
-│   │   └── providers/      # Context providers
-│   ├── public/             # Static assets
-│   └── ...
-└── backend/                # Nest.js backend
-    ├── src/
-    │   ├── auth/           # Authentication module
-    │   ├── user/           # User module
-    │   ├── prisma/         # Prisma module
-    │   ├── common/         # Common utilities
-    │   │   └── logger/     # Custom logger module
-    │   ├── app.module.ts   # Main app module
-    │   └── main.ts         # Application entry point
-    ├── prisma/             # Prisma schema and migrations
-    └── ...
-```
 
-## 🛠️ Technologies
+/src
+  └── auth/                # مدیریت احراز هویت و JWT
+  └── prisma/              # اتصال و مدیریت Prisma Client
+  └── reply/               # ماژول مربوط به پاسخ‌های سیستم
+  └── ticket/              # ماژول مدیریت تیکت‌ها
+  └── user/                # ماژول مدیریت کاربران
 
-### Frontend
-- **Next.js 14.2.4**: React framework with App Router
-- **TypeScript**: Static typing
-- **Shadcn UI & Radix UI**: Accessible component library
-- **Tailwind CSS**: Utility-first CSS framework
-- **React Query (Tanstack)**: Data fetching and caching
-- **Zustand**: Lightweight state management
-- **Zod + React Hook Form**: Form validation
-- **Custom Logger**: Structured logging system
+app.controller.ts          # کنترلر اصلی اپلیکیشن
+app.controller.spec.ts     # تست‌های کنترلر اصلی
+app.module.ts              # ماژول اصلی برنامه
+app.service.ts             # سرویس مرکزی برنامه
+main.ts                    # نقطه ورود برنامه NestJS
+  </pre>
 
-### Backend
-- **Nest.js**: Progressive Node.js framework
-- **TypeScript**: Static typing
-- **Prisma ORM**: Database ORM
-- **PostgreSQL**: Database
-- **JWT**: Authentication
-- **Swagger**: API documentation
-- **Class Validator & Transformer**: DTO validation
-- **Sentry**: Error tracking
-- **Custom Logger Module**: Structured logging system
+  <hr>
 
-## 📝 Custom Logging System
+  <h2>🚀 تکنولوژی‌های استفاده شده</h2>
 
-The platform includes a custom logging system for both frontend and backend:
+  <ul>
+    <li><a href="https://nestjs.com">NestJS</a> — فریم‌ورک بک‌اند مدرن و قابل گسترش بر پایه TypeScript.</li>
+    <li><a href="https://www.prisma.io">Prisma ORM</a> — مدیریت دیتابیس، مایگریشن و دسترسی به داده.</li>
+    <li><a href="https://www.postgresql.org">PostgreSQL</a> — دیتابیس رابطه‌ای قدرتمند و متن‌باز.</li>
+    <li><a href="https://www.typescriptlang.org">TypeScript</a> — افزایش کیفیت و پایداری کد.</li>
+  </ul>
 
-### Frontend Logger
-```typescript
-// Create a logger instance
-import { createContextLogger } from '@/lib/logger';
-const logger = createContextLogger('ComponentName');
+  <hr>
 
-// Usage
-logger.info('User logged in successfully');
-logger.error('Failed to fetch data', { error });
-```
+  <h2>🛠️ شروع پروژه</h2>
 
-### Backend Logger
-```typescript
-// Inject the logger service
-constructor(private readonly logger: LoggerService) {
-  this.logger.setContext('ServiceName');
-}
+  <ol>
+    <li>نصب پکیج‌ها:</li>
+  </ol>
 
-// Usage
-this.logger.info('Database connected successfully');
-this.logger.error('Authentication failed', { userId });
-```
+  <pre><code>npm install</code></pre>
 
-The logging system provides:
-- Multiple log levels (error, warn, info, http, debug)
-- Context-based logging
-- Environment-based filtering (debug logs disabled in production)
-- Formatted timestamps
-- Structured metadata support
+  <ol start="2">
+    <li>تنظیم فایل <code>.env</code> و اتصال دیتابیس PostgreSQL:</li>
+  </ol>
 
-## 🚦 Getting Started
+  <pre><code>DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/YOUR_DATABASE_NAME"</code></pre>
 
-### Prerequisites
+  <ol start="3">
+    <li>ساخت تیبل‌های دیتابیس:</li>
+  </ol>
 
-- Node.js 18+
-- npm or yarn
-- PostgreSQL
+  <pre><code>npx prisma generate
+npx prisma db push</code></pre>
 
-### Installation
+  <p>اگر از مایگریشن استفاده می‌کنید:</p>
 
-1. Clone the repository:
-```bash
-git clone https://github.com/yourusername/ecommerce-platform.git
-cd ecommerce-platform
-```
+  <pre><code>npx prisma migrate dev</code></pre>
 
-2. Install dependencies:
-```bash
-# Frontend
-cd frontend
-npm install
+  <ol start="4">
+    <li>اجرای برنامه:</li>
+  </ol>
 
-# Backend
-cd ../backend
-npm install
-```
+  <pre><code>npm run start:dev</code></pre>
 
-3. Set up environment variables:
-   - Create `.env.local` in the frontend directory
-   - Create `.env` in the backend directory
-   - Use the provided examples as reference
+  <hr>
 
-4. Set up the database:
-```bash
-# In the backend directory
-npx prisma migrate dev --name init
-```
+  <h3>💡 توضیحات بیشتر:</h3>
 
-5. Start the development servers:
-```bash
-# In the frontend directory
-npm run dev
+  <ul>
+    <li><strong>src/prisma:</strong> ارتباط با دیتابیس و مدیریت PrismaClient در کل پروژه.</li>
+    <li><strong>src/auth:</strong> سیستم ورود، ثبت‌نام و تولید توکن.</li>
+    <li><strong>src/user:</strong> مدیریت اطلاعات و عملیات کاربران.</li>
+    <li><strong>src/ticket:</strong> سیستم تیکتینگ.</li>
+    <li><strong>src/reply:</strong> پاسخ‌های مرتبط با تیکت‌ها.</li>
+  </ul>
 
-# In the backend directory
-npm run start:dev
-```
+  <hr>
 
-## 📱 Authentication Flow
+  <h2>✍️ توسعه‌دهنده</h2>
+<p><strong>Saber Qadimi</strong> — 
+<a href="https://www.linkedin.com/in/saber-qadimi/">LinkedIn</a> | 
+<a href="https://github.com/Saberqadimi">GitHub</a></p>
 
-1. User enters their phone number
-2. System sends an OTP code to the phone number
-3. User enters the OTP code
-4. If valid, the system creates a JWT token and authenticates the user
-5. If the phone number is new, a new user account is created
 
-## 🔒 Environment Variables
-
-### Frontend (.env.local)
-```
-NEXT_PUBLIC_API_URL="http://localhost:3001"
-NEXT_PUBLIC_SENTRY_DSN="your-sentry-dsn"
-```
-
-### Backend (.env)
-```
-DATABASE_URL="postgresql://postgres:password@localhost:5432/ecommerce?schema=public"
-JWT_SECRET="your-jwt-secret-key-change-in-production"
-JWT_EXPIRATION="7d"
-OTP_EXPIRATION_MINUTES=10
-PORT=3001
-NODE_ENV=development
-SENTRY_DSN="your-sentry-dsn"
-```
-
-## 📜 API Documentation
-
-Once the backend server is running, you can access the Swagger documentation at:
-```
-http://localhost:3001/api/docs
-```
-
-## 🚧 Future Enhancements
-
-- Product catalog management
-- Shopping cart functionality
-- Order processing
-- Payment integration
-- User profile management
-- Admin dashboard
-- Advanced search and filtering
-- Wishlist functionality
-- Product reviews and ratings
-- Multi-language support
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
+</div>
