@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  WRITER
+  USER
+}
+
+enum Department {
+  OTHER
+  TECHNICAL
+  SALE
+  SUPPORT
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  role      UserRole @default(USER)
+  tickets   Ticket[]
+  replies   Reply[]
+  createdAt DateTime @default(now())
+}
+
+model Ticket {
+  id          Int        @id @default(autoincrement())
+  title       String
+  description String
+  department  Department @default(OTHER)
+  status      String     @default("OPEN")
+  userId      Int
+  user        User       @relation(fields: [userId], references: [id])
+  replies     Reply[]
+  createdAt   DateTime   @default(now())
+}
+
+model Reply {
+  id        Int      @id @default(autoincrement())
+  content   String
+  ticketId  Int
+  ticket    Ticket   @relation(fields: [ticketId], references: [id])
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}
