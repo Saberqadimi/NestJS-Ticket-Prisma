@@ -1,5 +1,4 @@
 
 export interface FileValidatorStrategy {
-    validate(file: Express.Multer.File): void;
-  }
-  
+  validate(file: Express.Multer.File): void;
+}

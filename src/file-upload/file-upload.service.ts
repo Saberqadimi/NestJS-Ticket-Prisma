@@ -31,12 +31,21 @@ export class FileUploadService {
     const totalFiles = await this.prisma.file.count({ where });
     const totalPages = Math.ceil(totalFiles / limit);
 
-    const updatedFiles = files.map(file => ({
-      ...file,
-      path: file.diskLocation === 'local'
-        ? `http://localhost:3001/uploads${file.path}`
-        : 'www.example-cdn-storage.com/' + file.path,
-    }));
+    const LOCAL_BASE_URL = 'http://localhost:3001/uploads';
+    //example cdn baseUrl with Api Token
+    const CDN_BASE_URL = 'https://cdn.example.com/?key=121sWSW21212wkE@0035';
+
+    const updatedFiles = files.map(file => {
+      const fileUrl =
+        file.diskLocation === 'local'
+          ? `${LOCAL_BASE_URL}${file.path}`
+          : `${CDN_BASE_URL}${file.path}`;
+
+      return {
+        ...file,
+        url: fileUrl,
+      };
+    });
 
     return {
       files: updatedFiles,
@@ -46,7 +55,6 @@ export class FileUploadService {
       pageSize: limit,
     };
   }
-
 
 
   async uploadFile(file: Express.Multer.File, destination: 'local' | 'cdn') {
