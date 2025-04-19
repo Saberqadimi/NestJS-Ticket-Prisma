@@ -6,6 +6,8 @@ import { TicketModule } from './ticket/ticket.module';
 import { ReplyModule } from './reply/reply.module';
 import { AuthModule } from './auth/auth.module';
 import { AppService } from './app.service';
+import { FileUploadModule } from './file-upload/file-upload.module';
+
 
 @Module({
   imports: [
@@ -17,6 +19,7 @@ import { AppService } from './app.service';
     TicketModule,
     ReplyModule,
     AuthModule,
+    FileUploadModule,
   ],
   providers: [AppService],
 })

@@ -52,3 +52,13 @@ model Reply {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
 }
+
+model File {
+  id           Int      @id @default(autoincrement())
+  filename     String
+  diskLocation String
+  path         String
+  size         Int
+  fileType     String
+  createdAt    DateTime @default(now())
+}
