@@ -7,6 +7,7 @@ import { join } from 'path';
 import { unlink } from 'fs';
 import { promisify } from 'util';
 import { DatabaseFile } from './types/file.model';
+import { formatFileSize } from './utils/file-size-mb.util';
 
 const unlinkAsync = promisify(unlink);
 
@@ -26,6 +27,7 @@ export class FileUploadService {
       skip,
       take: limit,
       where,
+      orderBy: { createdAt: 'desc' }
     });
 
     const totalFiles = await this.prisma.file.count({ where });
@@ -44,6 +46,7 @@ export class FileUploadService {
       return {
         ...file,
         url: fileUrl,
+        sizeMB: formatFileSize(file.size),
       };
     });
 
